@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gesperModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="gesperModelStoreContainer">
+    <EntitySet Name="diplome" EntityType="gesperModel.Store.diplome" store:Type="Tables" Schema="gesper" />
+    <EntitySet Name="employe" EntityType="gesperModel.Store.employe" store:Type="Tables" Schema="gesper" />
+    <EntitySet Name="posseder" EntityType="gesperModel.Store.posseder" store:Type="Tables" Schema="gesper" />
+    <EntitySet Name="service" EntityType="gesperModel.Store.service" store:Type="Tables" Schema="gesper" />
+    <AssociationSet Name="FK_employe_service" Association="gesperModel.Store.FK_employe_service">
+      <End Role="service" EntitySet="service" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_posseder_diplome" Association="gesperModel.Store.FK_posseder_diplome">
+      <End Role="diplome" EntitySet="diplome" />
+      <End Role="posseder" EntitySet="posseder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_posseder_employe" Association="gesperModel.Store.FK_posseder_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="posseder" EntitySet="posseder" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="diplome">
+    <Key>
+      <PropertyRef Name="dip_id" />
+    </Key>
+    <Property Name="dip_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="dip_libelle" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="employe">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="emp_nom" Type="varchar" MaxLength="50" />
+    <Property Name="emp_prenom" Type="varchar" MaxLength="50" />
+    <Property Name="emp_sexe" Type="varchar" MaxLength="1" />
+    <Property Name="emp_cadre" Type="bit" />
+    <Property Name="emp_salaire" Type="decimal" Scale="2" />
+    <Property Name="emp_service" Type="int" />
+  </EntityType>
+  <EntityType Name="posseder">
+    <Key>
+      <PropertyRef Name="pos_diplome" />
+      <PropertyRef Name="pos_employe" />
+    </Key>
+    <Property Name="pos_diplome" Type="int" Nullable="false" />
+    <Property Name="pos_employe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="service">
+    <Key>
+      <PropertyRef Name="ser_id" />
+    </Key>
+    <Property Name="ser_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ser_designation" Type="varchar" MaxLength="50" />
+    <Property Name="ser_type" Type="varchar" MaxLength="1" />
+    <Property Name="ser_produit" Type="varchar" MaxLength="50" />
+    <Property Name="ser_capacite" Type="int" />
+    <Property Name="ser_budget" Type="decimal" Precision="15" Scale="2" />
+  </EntityType>
+  <Association Name="FK_employe_service">
+    <End Role="service" Type="gesperModel.Store.service" Multiplicity="0..1" />
+    <End Role="employe" Type="gesperModel.Store.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="service">
+        <PropertyRef Name="ser_id" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="emp_service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_posseder_diplome">
+    <End Role="diplome" Type="gesperModel.Store.diplome" Multiplicity="1" />
+    <End Role="posseder" Type="gesperModel.Store.posseder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="diplome">
+        <PropertyRef Name="dip_id" />
+      </Principal>
+      <Dependent Role="posseder">
+        <PropertyRef Name="pos_diplome" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_posseder_employe">
+    <End Role="employe" Type="gesperModel.Store.employe" Multiplicity="1" />
+    <End Role="posseder" Type="gesperModel.Store.posseder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="emp_id" />
+      </Principal>
+      <Dependent Role="posseder">
+        <PropertyRef Name="pos_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="remiseAZero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gesper" />
+</Schema>
