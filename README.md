@@ -1,5 +1,5 @@
-liaison de la base de données à l'application
+mise en place d'un mappage de la base de données
 
-génération d'un diagramme de classe automatique avec des collections qui traduisent les jointures
+développement d'une petite interface avec une listbox pour tester different cas de séléction sur la bdd
 
-développemnt de requetes linq -> des requètes sous la même forme qu'en SQL mais en prog
+pour chaque cas une requête LINQ est mise en place pour récuperer les données nécessaires
