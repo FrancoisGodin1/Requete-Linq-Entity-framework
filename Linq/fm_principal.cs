@@ -136,7 +136,6 @@ namespace Linq
 
         private void requete2()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       select emp.service;
 
@@ -148,7 +147,6 @@ namespace Linq
         }
         private void requete3()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes.Include("service")
                       select emp;
 
@@ -161,7 +159,6 @@ namespace Linq
 
         private void requete4()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       select new { LeNom = emp.emp_nom,LaDesignation = emp.service.ser_designation };
 
@@ -174,7 +171,6 @@ namespace Linq
 
         private void requete5()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where emp.emp_sexe == "M"
                       select emp;
@@ -188,7 +184,6 @@ namespace Linq
 
         private void requete6()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where (emp.emp_sexe) == "M" && (emp.emp_salaire > 3000)
                       select emp;
@@ -202,7 +197,6 @@ namespace Linq
 
         private void requete7()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where emp.service.ser_designation == "Commercial"
                       select emp;
@@ -216,7 +210,6 @@ namespace Linq
 
         private void requete8()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where emp.emp_cadre.Value
                       select emp;
@@ -230,7 +223,6 @@ namespace Linq
 
         private void requete9()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where emp.emp_nom.Contains("du")
                       select emp;
@@ -244,7 +236,6 @@ namespace Linq
 
         private void requete10()
         {
-            //tb_resultat.AppendText("requête 1: nom et prénom des employés");
             var req = from emp in bd.employes
                       where emp.service.ser_designation.StartsWith("Atelier")
                       select emp;
